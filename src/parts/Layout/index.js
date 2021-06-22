@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 const Layout = ({ children, handleConnectWallet, connectedAddress }) => {
   return (
@@ -9,12 +10,14 @@ const Layout = ({ children, handleConnectWallet, connectedAddress }) => {
             <div className='nav-collapse' id='main-menu'>
               <ul className='nav' id='main-menu-left'>
                 <li>
-                  <a href=''>Create</a>
+                  <NavLink to='/create' exact activeClassName='active'>
+                    Create
+                  </NavLink>
                 </li>
                 <li>
-                  <a href='' target='_blank'>
+                  <NavLink to='/posts' exact activeClassName='active'>
                     Posts
-                  </a>
+                  </NavLink>
                 </li>
               </ul>
               <ul className='nav pull-right' id='main-menu-right'>

@@ -1,8 +1,11 @@
 import { useState, useEffect } from 'react';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import Web3 from 'web3';
 
 import Layout from './parts/Layout';
 import Create from './pages/Create';
+import Posts from './pages/Posts';
+import PostDetail from './pages/Posts/PostDetail';
 
 import './App.css';
 
@@ -11,7 +14,7 @@ function App() {
   const [web3Provider, setWeb3Provider] = useState(null);
   const [connectedAddress, setConnectedAddress] = useState(undefined);
 
-  useEffect(async () => {
+  useEffect(() => {
     updateWeb3Environment();
   }, [web3Provider]);
 
@@ -68,10 +71,21 @@ function App() {
       handleConnectWallet={handleConnectWallet}
       connectedAddress={connectedAddress}
     >
-      <Create
-        handleConnectWallet={handleConnectWallet}
-        connectedAddress={connectedAddress}
-      />
+      <Switch>
+        <Redirect exact from='/' to='/posts' />
+        <Route exact path='/posts'>
+          <Posts />
+        </Route>
+        <Route exact path='/posts/:id'>
+          <PostDetail />
+        </Route>
+        <Route exact path='/create'>
+          <Create
+            handleConnectWallet={handleConnectWallet}
+            connectedAddress={connectedAddress}
+          />
+        </Route>
+      </Switch>
     </Layout>
   );
 }
